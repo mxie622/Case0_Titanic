@@ -50,11 +50,6 @@ train(Age ~ .,
 model_to_fill_NA <- knnreg(formula = Age ~ ., data = No_NA_set, k = 3)
 titanicDF$Age[is.na(titanicDF$Age)] = predict(model_to_fill_NA, subset(NA_set, select = -c(Age)))
 
-train(Age ~ .,
-      method = "knn",
-      data = No_NA_set,
-      tuneGrid = expand.grid(k = c(1,3,5,7)))
-
 # Since most models only accept dummy variables
 titanicDummy <- dummyVars("~.",data=titanicDF, fullRank=F)
 titanicDF <- as.data.frame(predict(titanicDummy,titanicDF))
